@@ -19,5 +19,4 @@
     format = "qcow2";
     partitionTableType = "hybrid";
   };
-  
 }

@@ -4,7 +4,7 @@ boot: root.qcow2
 build: root.qcow2
 
 flake.lock: flake.nix qcow.nix configuration.nix
-	nix flake update
+	touch $@
 
 root.qcow2: flake.lock
 	nix build --impure .#nixosConfigurations.build-qcow2.config.system.build.qcow2
