@@ -1,5 +1,5 @@
 {
-  description = "Example Virtual Machine Configuration";
+  description = "Black Magic";
   inputs =  {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
