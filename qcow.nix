@@ -1,6 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }: {
   imports = [
-    "${toString modulesPath}/profiles/qemu-guest.nix"
+    <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
 
   fileSystems."/" = {
@@ -12,10 +12,11 @@
   boot.kernelParams = ["console=ttyS0"];
   boot.loader.grub.device = lib.mkDefault "/dev/vda";
 
-  system.build.qcow2 = import "${modulesPath}/../lib/make-disk-image.nix" {
+  system.build.qcow2 = import <nixpkgs/nixos/lib/make-disk-image.nix> {
     inherit lib config pkgs;
     diskSize = 10240;
     format = "qcow2";
     partitionTableType = "hybrid";
   };
+  
 }
