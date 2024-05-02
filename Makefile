@@ -5,5 +5,5 @@ build: root.qcow2
 
 root.qcow2: flake.nix qcow.nix configuration.nix
 	nix build --impure .#nixosConfigurations.build-qcow2.config.system.build.qcow2
-	cp result/nixos.qcow2 root.qcow2
+	cp -f result/nixos.qcow2 root.qcow2
 	chmod 644 root.qcow2
