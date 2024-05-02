@@ -8,7 +8,7 @@
     password = "";
   };
   
-  services.getty.autologinUser = "ilude"
+  services.getty.autologinUser = "ilude";
 
   nixpkgs.config.allowUnfree = true;
 

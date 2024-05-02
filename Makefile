@@ -3,7 +3,10 @@ boot: root.qcow2
 
 build: root.qcow2
 
-root.qcow2: flake.nix qcow.nix configuration.nix
+flake.lock: flake.nix qcow.nix configuration.nix
+	nix flake update
+
+root.qcow2: flake.lock
 	nix build --impure .#nixosConfigurations.build-qcow2.config.system.build.qcow2
 	cp -f result/nixos.qcow2 root.qcow2
 	chmod 644 root.qcow2
