@@ -1,13 +1,21 @@
-{ config, lib, pkgs, ... }: {
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
+{ config, lib, pkgs, ... }: 
+{
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   users.users = {
-    tarn = {
+    ilude = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       password = "";
     };
   };
+
+  nixpkgs.config.allowUnfree = true;
+
+	security.sudo.wheelNeedsPassword = false;
+
+	# disable ipv6
+	networking.enableIPv6  = false;
 
   environment.systemPackages = with pkgs; [
     python310
