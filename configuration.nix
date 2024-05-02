@@ -2,13 +2,13 @@
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  users.users = {
-    ilude = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ];
-      password = "";
-    };
+  users.users.ilude = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    password = "";
   };
+  
+  services.getty.autologinUser = "ilude"
 
   nixpkgs.config.allowUnfree = true;
 
