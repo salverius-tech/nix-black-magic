@@ -1,18 +1,28 @@
 {
   description = "Black Magic";
-  inputs =  {
+  inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
-  outputs = { self, nixpkgs }: {
-    nixosConfigurations = {
-      # configuration for builidng qcow2 images
-      build-qcow2 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          ./qcow.nix
-        ];
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      commonModules = [
+        ./configuration.nix
+        ./qcow.nix
+      ];
+    in
+    {
+      nixosConfigurations = {
+        build-qcow2-development = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = commonModules ++ [
+            ./development.nix
+          ];
+        };
+        build-qcow2-production = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = commonModules;
+        };
       };
     };
-  };
 }
