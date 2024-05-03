@@ -6,6 +6,20 @@
   # disable ipv6
 	networking.enableIPv6  = false;
 
+  imports = [
+    <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+  ];
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    autoResize = true;
+    fsType = "ext4";
+  };
+
+  boot.kernelParams = ["console=ttyS0"];
+  boot.loader.grub.device = lib.mkDefault "/dev/vda";
+  boot.loader.timeout = 1;
+
   #nixpkgs.config.allowUnfree = true;
 
   users = {

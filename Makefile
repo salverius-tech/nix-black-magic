@@ -1,6 +1,6 @@
 BUILD_ENVIRONMENT := development
 ifneq (,$(filter production,$(MAKECMDGOALS)))
-    BUILD_ENVIRONMENT := production
+		BUILD_ENVIRONMENT := production
 endif
 
 boot: root.qcow2
@@ -11,10 +11,13 @@ build: root.qcow2
 production:
 	$(MAKE) build BUILD_ENVIRONMENT=production
 
-root.qcow2: flake.lock flake.nix qcow.nix configuration.nix
+root.qcow2 flake.lock: flake.nix qcow.nix configuration.nix
 	nix build --impure .#nixosConfigurations.build-qcow2-$(BUILD_ENVIRONMENT).config.system.build.qcow2
 	cp -f result/nixos.qcow2 root.qcow2
 	chmod 644 root.qcow2
 	touch flake.lock
 
-.PHONY: production
+.PHONY: production clean
+clean:
+	rm -f root.qcow2
+	rm -f flake.lock
