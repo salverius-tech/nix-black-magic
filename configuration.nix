@@ -47,26 +47,40 @@
   programs = {
 		# needed for vscode remote ssh
 		nix-ld.enable = true; 
-	 	zsh = {
-			enable = true;
-			autosuggestions.enable = true;
-			zsh-autoenv.enable = false;
-			syntaxHighlighting.enable = true;
-	  };
   };
+  
+  environment.shells = [ pkgs.zsh ];
+
+  programs.zsh = {
+    enable = true;
+    autosuggestions.enable = true;
+    zsh-autoenv.enable = false;
+    syntaxHighlighting.enable = true;
+    shellAliases = {
+      l    = "ls -alh";
+      ll   = "ls -l";
+      ls   = "ls --color=tty";
+      dps  = ''docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}"'';
+      dpsp = ''docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'';
+      nix-gc = "nix-store --gc";
+      nix-rs = "sudo nixos-rebuild switch";
+      nix-code = "code /etc/nixos/configuration.nix";
+      sdn     = "sudo shutdown -h now";
+    };
+  };
+
   
   security.sudo.wheelNeedsPassword = false;
 
   environment = {
-    shells = [ pkgs.zsh pkgs.bash ];
-    shellAliases = {
-      l       = "ls -lhA --color=auto --group-directories-first";
-      nix-gc  = "nix-store --gc";
-      nix-rs  = "sudo nixos-rebuild switch";
-      sdn     = "sudo shutdown -h now";
-    };
     systemPackages = with pkgs; [
       python310
+      zsh
+      zsh-fzf-tab
+      zsh-completions
+      zsh-autosuggestions
+      nix-zsh-completions
+      zsh-syntax-highlighting
     ];
   };
 }
