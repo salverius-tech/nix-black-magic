@@ -7,7 +7,7 @@
     let
       system = "x86_64-linux";
       commonModules = [
-        ./common/configuration.nix
+        ./common/base-config.nix
         ./common/packages.nix
         ./common/qcow.nix
       ];
@@ -22,7 +22,9 @@
         };
         build-qcow2-production = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = commonModules;
+          modules = commonModules ++ [
+            ./prod/production.nix
+          ];
         };
       };
     };

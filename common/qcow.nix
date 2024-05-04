@@ -4,6 +4,6 @@
     diskSize = 10240;
     format = "qcow2";
     partitionTableType = "hybrid";
-    configFile = pkgs.writeText "configuration.nix" (pkgs.lib.readFile ./configuration.nix);
+    # configFile = pkgs.writeText "configuration.nix" (pkgs.lib.readFile ./common/base-config.nix);
   };
 }
