@@ -13,7 +13,7 @@ build: $(IMAGE_FILE)
 production:
 	$(MAKE) build BUILD_ENVIRONMENT=production
 
-$(IMAGE_FILE) flake.lock: flake.nix qcow.nix configuration.nix
+$(IMAGE_FILE) flake.lock: flake.nix ./common/qcow.nix ./common/configuration.nix
 	nix build --impure .#nixosConfigurations.build-qcow2-$(BUILD_ENVIRONMENT).config.system.build.qcow2
 	mkdir -p output
 	cp -f result/nixos.qcow2 $(IMAGE_FILE)

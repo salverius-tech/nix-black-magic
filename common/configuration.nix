@@ -22,9 +22,11 @@
 
   #nixpkgs.config.allowUnfree = true;
 
+  security.sudo.wheelNeedsPassword = false;
+
   users = {
     defaultUserShell = pkgs.zsh;
-    users.ilude = {
+    users.salverius = {
       isNormalUser = true;
       extraGroups = [ "wheel" "docker" "users" ];
       shell = pkgs.zsh;
@@ -32,7 +34,7 @@
     };
   };
 
-  services.getty.autologinUser = "ilude";
+  services.getty.autologinUser = "salverius";
 
   system.userActivationScripts = {
     createZshrcFile = {
@@ -57,7 +59,7 @@
     zsh-autoenv.enable = false;
     syntaxHighlighting.enable = true;
     shellAliases = {
-      l    = "ls -alh";
+      l    = "ls -lhA --color=auto --group-directories-first";
       ll   = "ls -l";
       ls   = "ls --color=tty";
       dps  = ''docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}"'';
@@ -69,18 +71,4 @@
     };
   };
 
-  
-  security.sudo.wheelNeedsPassword = false;
-
-  environment = {
-    systemPackages = with pkgs; [
-      python310
-      zsh
-      zsh-fzf-tab
-      zsh-completions
-      zsh-autosuggestions
-      nix-zsh-completions
-      zsh-syntax-highlighting
-    ];
-  };
 }
