@@ -23,7 +23,7 @@
     fsType = "ext4";
   };
 
-  services.getty.autologinUser = "salverius";
+  # services.getty.autologinUser = "salverius";
   security.sudo.wheelNeedsPassword = false;
 
   users = {

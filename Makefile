@@ -1,6 +1,8 @@
+export DOPPLER_TOKEN_FILE := ./dev/doppler.yaml
 BUILD_ENVIRONMENT := development
 ifneq (,$(filter production,$(MAKECMDGOALS)))
 		BUILD_ENVIRONMENT := production
+		DOPPLER_TOKEN_FILE := ./prod/doppler.yaml
 endif
 
 IMAGE_FILE := output/root.qcow2
@@ -11,10 +13,10 @@ boot: build
 build: $(IMAGE_FILE)
 
 production:
-	$(MAKE) build BUILD_ENVIRONMENT=production
+	$(MAKE) boot BUILD_ENVIRONMENT=production DOPPLER_TOKEN_FILE=./prod/doppler.yaml
 
 $(IMAGE_FILE) flake.lock: flake.nix ./common/qcow.nix ./common/base-config.nix
-	nix build --impure .#nixosConfigurations.build-qcow2-$(BUILD_ENVIRONMENT).config.system.build.qcow2
+	doppler run --token $(shell cat $(DOPPLER_TOKEN_FILE)) -- nix build --impure .#nixosConfigurations.build-qcow2-$(BUILD_ENVIRONMENT).config.system.build.qcow2
 	mkdir -p output
 	cp -f result/nixos.qcow2 $(IMAGE_FILE)
 	chmod 644 $(IMAGE_FILE)

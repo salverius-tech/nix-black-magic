@@ -3,6 +3,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      doppler
       python310
       ssh-import-id
       zsh
