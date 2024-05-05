@@ -9,7 +9,7 @@
       commonModules = [
         ./common/base-config.nix
         ./common/base-packages.nix
-        ./common/qcow.nix
+        ./common/build-image.nix
       ];
     in
     {

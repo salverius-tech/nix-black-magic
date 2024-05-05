@@ -1,4 +1,5 @@
 *.qcow2
 result
-dev/doppler.yaml
-prod/doppler.yaml
+output/
+dev/.doppler-token
+prod/.doppler-token
