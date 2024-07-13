@@ -12,7 +12,7 @@
   boot.loader.grub.device = lib.mkDefault "/dev/vda";
   boot.loader.timeout = 1;
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 
   # disable ipv6
 	networking.enableIPv6  = false;
