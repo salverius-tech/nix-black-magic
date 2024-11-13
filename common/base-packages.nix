@@ -4,6 +4,9 @@
   environment = {
     systemPackages = with pkgs; [
       doppler
+      git
+      gnumake
+      just
       python310
       ssh-import-id
       starship
