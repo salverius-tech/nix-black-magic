@@ -4,6 +4,7 @@ let
 
   username = pkgs.lib.removeSuffix "/n" (builtins.getEnv "USERNAME");
   password = pkgs.lib.removeSuffix "/n" (builtins.getEnv "PASSWORD");
+  sshkey   = pkgs.lib.removeSuffix "/n" (builtins.getEnv "SSHKEY");
 
 in
 {
@@ -14,9 +15,9 @@ in
     password = password;
     extraGroups = [ "wheel" "docker" "users" ];
     shell = pkgs.zsh;
-    # openssh.authorizedKeys.keys = [
-    #   "$(grep SSH_KEY ${doppler-secrets} | cut -d '=' -f2)"
-    # ];
+    openssh.authorizedKeys.keys = [
+      "${sshkey}"
+    ];
   };
 
 }
