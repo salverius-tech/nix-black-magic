@@ -63,6 +63,7 @@
       dpsp = ''docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'';
       nix-gc = "nix-store --gc";
       nix-rs = "sudo nixos-rebuild switch";
+      nix-rt = "sudo nixos-rebuild test";
       nix-code = "code /etc/nixos/configuration.nix";
       sdn     = "sudo shutdown -h now";
     };
